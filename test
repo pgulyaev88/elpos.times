@@ -1,0 +1,56 @@
+//                            switch (result[i].cafe_id)
+//                            {
+//                              case 1006898:
+//                              var restname = "Караван";
+//                              break;
+
+//                              case 1001394:
+//                              restname = "Скала";
+//                              break;
+
+//                              case 1003275:
+//                              restname = "Глобо";
+//                              break;
+
+//                              case 1009389:
+//                              restname = "ЮГ";
+//                              break;
+
+//                              case 1003270:
+//                              restname = "Машерова";
+//                              break;
+
+//                              case 1003273:
+//                              restname = "Рокоссовского";
+//                              break;
+
+//                              case 1003272:
+//                              restname = "Притыцкого";
+//                              break;
+
+//                              case 1003274:
+//                              restname = "Уручье";
+//                              break;
+
+//                              case 1009802:
+//                              restname = "Парк";
+//                              break;
+//                            }
+
+//                            if(result[i].cafe_id===1006898){
+
+//                            }
+//                            else if(result[i].cafe_id===1001394){
+//                            restname = "Скала";}
+//                            else if(result[i].cafe_id===1003275){
+//                            restname = "Глобо"}
+//                            else if(result[i].cafe_id===1009389){
+//                            restname = "ЮГ"}
+//                            else if(result[i].cafe_id===1003270){
+//                            restname = "Машерова"}
+//                            else if(result[i].cafe_id===1003273){
+//                            restname = "Рокоссовского"} else if(result[i].cafe_id===1003272){
+//                            restname = "Притыцкого"} else if(result[i].cafe_id===1003274){
+//                            restname = "Уручье"} else if(result[i].cafe_id===1009802){
+//                            restname = "Парк"}else if(result[i].cafe_id===1003271){
+//                                restname = "Айсберг"}

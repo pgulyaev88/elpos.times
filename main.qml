@@ -2,12 +2,15 @@ import QtQuick 2.7
 import QtQuick.Window 2.2
 import QtQml 2.2
 import QtQuick.Controls 2.0
+import QtQuick.Controls 1.4
+import QtQuick 2.0
 
 
 Window {
+    id: window1
     visible: true
-    width: 640
-    height: 480
+    width: 1366
+    height: 768
 
     ListModel {
             id: listModel
@@ -15,35 +18,176 @@ Window {
 
     ListView{
         id: listview
-
-        anchors.margins: 10
-        anchors.fill: parent
+        width: 500
+        height: 350
         model: listModel
-        spacing: 10
-        delegate: Text {
-                    text: listdata ;
+        anchors.top: parent.top
+        anchors.bottom: buttonBar.top
+        delegate: Row{
+            Rectangle{
+                x: 0
+                Text { text: restname; font.pixelSize: 18 }
+            }
+
+            Rectangle{
+                x:200
+                Text { text: takeaway_sushi; font.pixelSize: 18 }
+            }
+            Rectangle{
+                x:400
+                Text { text: takeaway_wok; font.pixelSize: 18 }
+            }
+            Rectangle{
+                x:800
+                Text { text: delivery_near; font.pixelSize: 18 }
+            }
+            Rectangle{
+                x:1000
+                Text { text: delivery_far; font.pixelSize: 18 }
+            }
         }
+        section.property: "size"
+        section.criteria: ViewSection.FullString
+        section.delegate: sectionHeading
+    }
+    Row {
+           id: buttonBar
+           anchors.bottom: parent.bottom
+           anchors.bottomMargin: 1
+           spacing: 1
 
     }
+    Component {
+           id: sectionHeading
+           Rectangle {
+               width: container.width
+               height: childrenRect.height
+               color: "lightsteelblue"
+
+               Text {
+                   text: section
+                   font.bold: true
+                   font.pixelSize: 20
+               }
+           }
+       }
+
+//    TableView {
+//        width: 1920
+//        height: 1080
+//        scale: 1
+//        anchors.topMargin: 0
+//        anchors.fill: parent
+
+//        TableViewColumn {
+//            role: "restname"
+//            title: "Ресторан"
+//            width: 200
+
+//        }
+//        TableViewColumn {
+//            role: "takeaway_sushi"
+//            title: "Время суши"
+//            width: 100
+//            horizontalAlignment:Text.AlignHCenter
+//        }
+//        TableViewColumn {
+//            role: "takeaway_wok"
+//            title: "Время вок"
+//            width: 100
+//            horizontalAlignment:Text.AlignHCenter
+//        }
+//        TableViewColumn {
+//            role: "delivery_near"
+//            title: "Время доставки"
+//            width: 100
+//            horizontalAlignment:Text.AlignHCenter
+//        }
+//        TableViewColumn {
+//            role: "delivery_far"
+//            title: "Время дальняя"
+//            width: 100
+//            horizontalAlignment:Text.AlignHCenter
+//        }
+
+//        model: listModel
+//    }
+
+
 
     function getData() {
+
+            listModel.clear();
             var request = new XMLHttpRequest();
             var url = "http://cc.sushivesla.by/timings/index.xml";
             request.onreadystatechange = function () {
                 if (request.readyState === XMLHttpRequest.DONE) {
                     if (request.status === 200) {
-                        console.log(request.responseText)
-                        var result = JSON.parse(request.responseText)
-                        for (var i in result)
-                            var restname;
-                            if(result[i].cafe_id){
+//                        console.log(request.responseText);
+                        var result = JSON.parse(request.responseText);
 
+                        var restname ;
+
+
+
+
+                        for (var i in result){
+                        switch (parseInt(result[i].cafe_id))
+                            {
+                              case 1006898:
+                              restname = "Караван";
+                              break;
+
+                              case 1001394:
+                              restname = "Скала";
+                              break;
+
+                              case 1003275:
+                              restname = "Глобо";
+                              break;
+
+                              case 1009389:
+                              restname = "ЮГ";
+                              break;
+
+                              case 1003270:
+                              restname = "Машерова";
+                              break;
+
+                              case 1003271:
+                              restname = "Айсберг";
+                              break;
+
+                              case 1003273:
+                              restname = "Рокоссовского";
+                              break;
+
+                              case 1003272:
+                              restname = "Притыцкого";
+                              break;
+
+                              case 1003274:
+                              restname = "Уручье";
+                              break;
+
+                              case 1009802:
+                              restname = "Парк";
+                              break;
                             }
 
-                        listModel.append({ listdata: result[i].cafe_id + " " + result[i].takeaway_sushi + " " + result[i].takeaway_wok + " "+ result[i].delivery_near + " "+result[i].delivery_far});
+                        listModel.append({ "restname": restname,"takeaway_sushi": result[i].takeaway_sushi,"takeaway_wok": result[i].takeaway_wok,
+                                                "delivery_near":result[i].delivery_near, "delivery_far":result[i].delivery_far});
+//                        console.log(result[i].restname);
+//                        console.log(result[i].cafe_id);
+//                        console.log(result[i].takeaway_sushi)
+//                        console.log(result[i].takeaway_wok)
+//                        console.log(result[i].delivery_near)
+//                        console.log(result[i].delivery_far)
+
+                        }
 
                 } else {
-                    console.log("HTTP request failed", request.status)
+                    console.log("HTTP request failed", request.status);
                     }
                 }
         }
@@ -59,7 +203,7 @@ Window {
                 width: parent.width
                 text: "Get Data"
                 onClicked: getData()
-            }
+        }
 
 
 }
