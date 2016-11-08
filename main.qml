@@ -174,6 +174,11 @@ Window {
                               case 1009802:
                               restname = "Парк";
                               break;
+
+                              case 1008704:
+                              restname = "FoodRepublic";
+                              break;
+
                             }
 
                         listModel.append({ "restname": restname,"takeaway_sushi": result[i].takeaway_sushi,"takeaway_wok": result[i].takeaway_wok,
