@@ -120,17 +120,14 @@ Window {
 
 
             var request = new XMLHttpRequest();
-            var url = "http://cc.sushivesla.by/timings/index.xml";
+            var url = "https://cc.sushivesla.by/timings/index.json";
             request.onreadystatechange = function () {
                 if (request.readyState === XMLHttpRequest.DONE) {
                     if (request.status === 200) {
-//                        console.log(request.responseText);
+                        console.log(request.responseText);
                         var result = JSON.parse(request.responseText);
             listModel.clear();
                         var restname ;
-
-
-
 
                         for (var i in result){
                         switch (parseInt(result[i].cafe_id))
@@ -181,8 +178,36 @@ Window {
 
                             }
 
-                        listModel.append({ "restname": restname,"takeaway_sushi": result[i].takeaway_sushi,"takeaway_wok": result[i].takeaway_wok,
-                                                "delivery_near":result[i].delivery_near, "delivery_far":result[i].delivery_far});
+                        // перевод в вид чч:мм
+                        var takeawaySushi = new Date(null);
+                        takeawaySushi.setUTCMinutes(result[i].takeaway_sushi);
+                        // substring(9,14) обрезка полного вида(до какого символа, после какого символа) , т.к toTimeString() возвращал время на 3 часа больше
+                        var result_takeawaySushi = takeawaySushi.toUTCString().substring(9,14);
+
+                        var takeawayWok = new Date(null);
+                        takeawayWok.setUTCMinutes(result[i].takeaway_wok);
+                        // substring(9,14) обрезка полного вида(до какого символа, после какого символа) , т.к toTimeString() возвращал время на 3 часа больше
+                        var result_takeawayWok = takeawayWok.toUTCString().substring(9,14);
+
+                        var deliveryNear = new Date(null);
+                        deliveryNear.setUTCMinutes(parseInt(result[i].takeaway_sushi) + parseInt(result[i].delivery_near));
+                        // substring(9,14) обрезка полного вида(до какого символа, после какого символа) , т.к toTimeString() возвращал время на 3 часа больше
+                        var result_deliveryNear = deliveryNear.toUTCString().substring(9,14);
+
+                        var deliveryFar = new Date(null);
+                        deliveryFar.setUTCMinutes(parseInt(result[i].takeaway_sushi) + parseInt(result[i].delivery_far));
+                        // substring(9,14) обрезка полного вида(до какого символа, после какого символа) , т.к toTimeString() возвращал время на 3 часа больше
+                        var result_deliveryFar = deliveryFar.toUTCString().substring(9,14);
+
+                        var testtime = parseInt(result[i].takeaway_sushi) + parseInt(result[i].delivery_near);
+                        console.log(testtime);
+
+
+                        listModel.append({ "restname": restname,
+                                             "takeaway_sushi": result_takeawaySushi,
+                                             "takeaway_wok": result_takeawayWok,
+                                             "delivery_near":result_deliveryNear,
+                                             "delivery_far":result_deliveryFar});
 //                        console.log(result[i].restname);
 //                        console.log(result[i].cafe_id);
 //                        console.log(result[i].takeaway_sushi)
