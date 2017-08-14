@@ -15,17 +15,30 @@ Window {
     height: 1080
     visibility: "FullScreen"
 
+
     ListModel {
             id: listModel
+
     }
+
+GridView {
+    width: 1920
+    height: 1080
+    interactive: false
 
     TableView {
         width: 1920
         height: 1080
+//        maximumHeight: height
+//        maximumWidth: width
+
+//        minimumHeight: height
+//        minimumWidth: width
         scale: 1
         alternatingRowColors: true
         anchors.topMargin: 0
         anchors.fill: parent
+
 
         rowDelegate: Rectangle {
             height: 90
@@ -49,7 +62,7 @@ Window {
             width: 500
 
             delegate: Text {
-                    font.pixelSize : 72
+                    font.pixelSize : 60
                     color: "white"
                     text: styleData.value
                     verticalAlignment: Text.AlignVCenter
@@ -62,7 +75,7 @@ Window {
             width: 350
             horizontalAlignment:Text.AlignHCenter
             delegate: Text {
-                    font.pixelSize : 72
+                    font.pixelSize : 60
                     text: styleData.value
                     verticalAlignment: Text.AlignVCenter
                     color: "white"
@@ -72,10 +85,10 @@ Window {
         TableViewColumn {
             role: "takeaway_wok"
             title: "Вок"
-            width: 350
+            width: 300
             horizontalAlignment:Text.AlignHCenter
             delegate: Text {
-                    font.pixelSize : 72
+                    font.pixelSize : 60
                     text: styleData.value
                     verticalAlignment: Text.AlignVCenter
                     color: "white"
@@ -89,7 +102,7 @@ Window {
             width: 350
             horizontalAlignment:Text.AlignHCenter
             delegate: Text {
-                    font.pixelSize : 72
+                    font.pixelSize : 60
                     text: styleData.value
                     verticalAlignment: Text.AlignVCenter
                     color: "white"
@@ -102,7 +115,7 @@ Window {
             width: 350
             horizontalAlignment:Text.AlignHCenter
             delegate: Text {
-                    font.pixelSize : 72
+                    font.pixelSize : 60
                     text: styleData.value
                     verticalAlignment: Text.AlignVCenter
                     color: "white"
@@ -113,7 +126,7 @@ Window {
 
         model: listModel
     }
-
+}
 
 
     function getData() {
@@ -174,6 +187,10 @@ Window {
 
                               case 1008704:
                               restname = "FoodRepublic";
+                              break;
+
+                              case 1011849:
+                              restname = "МОМО";
                               break;
 
                             }
